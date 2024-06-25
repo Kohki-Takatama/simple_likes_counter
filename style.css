@@ -1,0 +1,62 @@
+.c-tooltip {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.c-tooltip::before,
+.c-tooltip::after {
+  -webkit-transition: all 0.2s;
+  opacity: 1;
+  position: absolute;
+  visibility: hidden;
+  z-index: 11;
+  transition: opacity 0.5s, visibility 0s linear 2s; /* 2秒後にvisibilityがhiddenに */
+}
+
+.c-tooltip::before {
+  -webkit-transform: translateY(-50%);
+  border-color: transparent #5f6368 transparent transparent;
+  border-style: solid;
+  border-width: 3px 7px 3px 0;
+  content: '';
+  height: 0;
+  left: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+}
+
+.c-tooltip::after {
+  -webkit-transform: translateY(-50%);
+  background: #5f6368;
+  border-radius: 3px;
+  color: #fff;
+  content: attr(data-tooltip);
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  left: calc(100% + 13px);
+  padding: 5px 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+.c-tooltip:active::before,
+.c-tooltip:active::after {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.1s, visibility 0s;
+}
+
+.c-tooltip:not(:active)::before,
+.c-tooltip:not(:active)::after {
+  animation: fadeOut 0.5s forwards; /* アニメーションを指定 */
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
